@@ -3,7 +3,7 @@ using UnityEngine;
 public class TeacherManager : MonoBehaviour
 {
     private Animator _animator;
-    private bool _run;
+    private bool _run; // TODO Bu gerekli mi?
     
     public static TeacherManager instance;
     public GameObject studentPlayer;
@@ -37,7 +37,7 @@ public class TeacherManager : MonoBehaviour
 
     public void TeacherRun()
     {
-        _run = true;
+        _run = true; // TODO Bu gerekli mi?
         TeacherRunAnimation(true);
     }
 
@@ -55,7 +55,7 @@ public class TeacherManager : MonoBehaviour
     {
         TeacherLookBackRotation(0f);
         distance = -7f;
-        _run = false;
+        _run = false; // TODO Bu gerekli mi?
         TeacherRunAnimation(false);
         transform.position = new Vector3(0f,0.23f,-3.38f);
     }
