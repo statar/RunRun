@@ -27,7 +27,6 @@ public class TeacherManager : MonoBehaviour
     {
         if (_run)
         {
-            var maxX = 0f;
             var studentPos = studentPlayer.transform.position;
             transform.position = Vector3.Lerp(transform.position, (studentPos + (Vector3.forward * distance)),
                 4f * Time.deltaTime);

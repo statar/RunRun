@@ -1,21 +1,12 @@
-/*
- using System;
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public class GameDataScript : MonoBehaviour
-{
-    public static GameDataScript instance;
-    public int bestScoreData;
-    private void Awake()
+public static class GameDataScript
+{ public static void SaveLevelDataAsJson()
     {
-        instance = this;
-    }
-
-    public void SaveLevelDataAsJson()
-    {
-        string path = Application.dataPath + "/Resources/" + "RunRunGameData" + ".json";
+        string path = Application.dataPath + "/Resources/RunRunGameData.json";
         var data = SerializeMapData();
 
         using (FileStream fs = new FileStream(path, FileMode.Create))
@@ -28,32 +19,31 @@ public class GameDataScript : MonoBehaviour
         AssetDatabase.Refresh();
     }
 
-    private string SerializeMapData()
+    private static string SerializeMapData()
     {
-        var levelData = new LevelData {bestScore = CanvasController.instance.bestScore};
+        var levelData = new LevelData();
+        levelData.bestScore = CanvasController.instance.bestScore;
         var data = JsonUtility.ToJson(levelData);
         return data;
     }
 
-    public void LoadLevelDataFromJson()
+    public static void LoadLevelDataFromJson()
     {
-        string path = Application.dataPath + "/Resources/" + "RunRunGameData";
+        string path = Application.dataPath +"/Resources/RunRunGameData.json";
         var data = ReadDataFromText(path);
         var levelData = JsonUtility.FromJson<LevelData>(data);
         LoadScene(levelData);
     }
 
-    private string ReadDataFromText(string path)
+    private static string ReadDataFromText(string path)
     {
         string data = null;
         try
         {
-            using (FileStream fs = new FileStream(path, FileMode.Open))
+            using FileStream fs = new FileStream(path, FileMode.Open);
+            using (StreamReader reader = new StreamReader(fs))
             {
-                using (StreamReader reader = new StreamReader(fs))
-                {
-                    data = reader.ReadToEnd();
-                }
+                data = reader.ReadToEnd();
             }
         }
         catch (System.Exception ex)
@@ -63,12 +53,17 @@ public class GameDataScript : MonoBehaviour
         return data;
     }
 
-    private void LoadScene(LevelData levelData)
+    private static void LoadScene(LevelData levelData)
     {
-        var score = levelData.bestScore;
-        bestScoreData = score;
+        var data = new LevelData();
+        data = levelData;
+        if (data != null) 
+            CanvasController.instance.bestScore = data.bestScore;
+        else
+        {
+            Debug.Log("data bulunamadı");
+        }
     }
-
 }
 
 [Serializable]
@@ -76,4 +71,3 @@ public class LevelData
 {
     public int bestScore;
 }
-*/
