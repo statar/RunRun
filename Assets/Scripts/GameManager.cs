@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour
     }
     public void ResetLevel()
     {
-        GameDataScript.SaveLevelDataAsJson();
         studentPlayer.GetComponent<StudentMovementController>().ResetMovement();
         StudentAnimatorController.instance.StudentAngryAnimation(false);
         TeacherManager.instance.ResetTeacher();
+        GameDataScript.SaveLevelDataAsJson();
     }
 
     public void StartGame()

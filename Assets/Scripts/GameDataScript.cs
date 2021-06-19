@@ -5,7 +5,7 @@ using UnityEngine;
 public static class GameDataScript
 { public static void SaveLevelDataAsJson()
     {
-        string path = Application.dataPath + "/Resources/RunRunGameData.json";
+        string path = Application.persistentDataPath + "/RunRunGameData.json";
         var data = SerializeMapData();
 
         using (FileStream fs = new FileStream(path, FileMode.Create))
@@ -27,7 +27,7 @@ public static class GameDataScript
 
     public static void LoadLevelDataFromJson()
     {
-        string path = Application.dataPath +"/Resources/RunRunGameData.json";
+        string path = Application.persistentDataPath + "/RunRunGameData.json";
         var data = ReadDataFromText(path);
         var levelData = JsonUtility.FromJson<LevelData>(data);
         LoadScene(levelData);
