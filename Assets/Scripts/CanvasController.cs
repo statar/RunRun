@@ -19,7 +19,6 @@ public class CanvasController : MonoBehaviour
 
     private void Awake()
     {
-        
         instance = this;
         _timerTime = 3f;
     }
@@ -27,7 +26,6 @@ public class CanvasController : MonoBehaviour
     private void Start()
     {
         StartPanelSetActive(true);
-        StartPanelBestScore();
         _isTimerStarted = false;
     }
     
@@ -48,10 +46,12 @@ public class CanvasController : MonoBehaviour
     public void StartPanelSetActive(bool setActive)
     {
         startPanel.SetActive(setActive);
+        if (setActive)
+            StartPanelBestScore();
     }
     public void StartPanelBestScore()
     {
-        startPanelBestScoreText.text = ("BEST SCORE  " + bestScore + " M");
+        startPanelBestScoreText.text = (bestScore + " M");
     }
 
     public void GameEndPanelSetActive(bool setActive)
@@ -93,7 +93,7 @@ public class CanvasController : MonoBehaviour
     {
         if (_isTimerStarted && _timerTime > -1f)
         {
-            _timerTime -= Time.deltaTime;
+            _timerTime -= Time.deltaTime * 1.8f;
             GameStartTimerText((int)_timerTime);
 
             if (_timerTime < -0.1f)

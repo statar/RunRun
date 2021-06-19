@@ -11,23 +11,19 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            GameDataScript.LoadLevelDataFromJson();
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
     }
-
-    private void Start()
-    {
-    }
-
     public void ResetLevel()
     {
         studentPlayer.GetComponent<StudentMovementController>().ResetMovement();
         StudentAnimatorController.instance.StudentAngryAnimation(false);
         TeacherManager.instance.ResetTeacher();
-
+        GameDataScript.SaveLevelDataAsJson();
     }
 
     public void StartGame()

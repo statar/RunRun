@@ -7,7 +7,7 @@ public class StudentMovementController : MonoBehaviour
     
     private Joystick _joystick;
     [SerializeField] private float forwardSpeed = 2.4f;
-    [SerializeField] private float movementSpeed = 1.5f;
+    [SerializeField] private float movementSpeed = 1.7f;
     private float _targetY;
     private bool _updateMovement;
     private bool _isJumping;
@@ -64,26 +64,41 @@ public class StudentMovementController : MonoBehaviour
 
         var targetZ = pPos.z + forwardSpeed;
         var direction = new Vector3(x: targetX, _targetY, targetZ);
-        StudentJump(pPos);
+        StudentJump();
         transform.position = Vector3.Lerp(pPos, direction ,5f * Time.deltaTime);
         StudentMovementRotatian();
     }
 
-    private void StudentJump(Vector3 pPos)
+    private void StudentJump()
     {
+        var positionYPos = transform.position.y;
+        if (!_isJumping &&_joystick.Vertical > 0.5f)
+        {
+            _targetY = 4.5f;
+            _isJumping = true;
+        }
+
+        if (_isJumping && positionYPos > 4f)
+            _targetY = 0.24f;
+        
+        if (_isJumping && positionYPos < 0.26f)
+            _isJumping = false;
+        
+        /*
         switch (_isJumping)
         {
             case false when _joystick.Vertical > 0.5f:
                 _targetY = 4f;
                 _isJumping = true;
                 break;
-            case true when pPos.y > 3.8f:
+            case true when pPos.y > 3.7f:
                 _targetY = 0.24f;
                 break;
             case true when pPos.y < 0.26f:
                 _isJumping = false;
                 break;
         }
+        */
     }
 
     private void StudentMovementRotatian()
