@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 
 public static class GameDataScript
@@ -16,7 +15,6 @@ public static class GameDataScript
                 writer.Write(data);
             }
         }
-        AssetDatabase.Refresh();
     }
 
     private static string SerializeMapData()
