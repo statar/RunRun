@@ -17,6 +17,7 @@ public class ObstacleObjectsComponent : MonoBehaviour
 
     private void Update()
     {
+        // TODO GetPlayerPos() cagirmak yerine fonksiyona girdiginde "var oldPos = playerGameObject.transform.position.z;" yazsan daha temiz olur.
         if ((_oldPlayerPosition + 10f < playerGameObject.transform.position.z) && _activeObstacleObjectsList.Count < 10)
         {
             GetPlayerPos();
